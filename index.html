@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Wer ist die größte Baddie?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      width: 150px;
+      height: 100px;
+      background: white;
+      color: black;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.1);
+      background: #ffe6f7;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .correct {
+      color: #00ffcc;
+      animation: glow 1s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffcc; }
+      to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: yellow;
+      top: -10px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Wer ist die größte Baddie der Welt? 💅</h1>
+
+  <div class="cards">
+    <div class="card" onclick="reveal(this, 'Ihre Bestie forever heißt Luna')">Hinweis 1</div>
+    <div class="card" onclick="reveal(this, 'Sie Spießt gerne mal Leute auf')">Hinweis 2</div>
+    <div class="card" onclick="reveal(this, 'Sie ist mehr Baddie als Ikki')">Hinweis 3</div>
+  </div>
+
+  <div>
+    <input type="text" id="nameInput" placeholder="Gib den Namen ein...">
+    <button onclick="checkName()">Check</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    function reveal(card, text) {
+      card.innerText = text;
+      card.style.background = '#ffd1f0';
+    }
+
+    function checkName() {
+      const input = document.getElementById('nameInput').value.trim().toLowerCase();
+      const result = document.getElementById('result');
+
+      if (input === 'maria') {
+        result.innerText = 'RICHTIG! MARIA IST DIE GRÖSSTE BADDIE 💅✨';
+        result.className = 'correct';
+        launchConfetti();
+      } else {
+        result.innerText = 'Nope, Versuch es nochmal!';
+        result.className = '';
+      }
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
